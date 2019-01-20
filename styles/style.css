@@ -1,0 +1,24 @@
+.pad-x-large{
+    padding-left: 10% !important;
+    padding-right: 10% !important;
+}
+
+.height-small{
+    min-height: 40px !important;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.uk-progress-success::-webkit-progress-value{
+    background-color: #6bdeb3;
+}
+
+.uk-progress-danger::-webkit-progress-value{
+    background-color: #f0506e;
+}
+
+.hide{
+    display: none;
+}

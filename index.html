@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Expense Tracker</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <div class="pad-x-large uk-container uk-container-expand uk-background-secondary">
+            <nav class="uk-light" uk-navbar>
+                <a class="uk-navbar-item uk-logo" href="/">Expensio</a>
+                <div id="display-name" class="uk-navbar-right"></div>
+                <div id="change-name-modal" uk-modal>
+                    <div class="uk-modal-dialog uk-modal-body">
+                        <h2 class="uk-modal-title" style="font-size: 16px; text-transform: uppercase">Change Name</h2>
+                        <div class="uk-margin uk-width-1-1">
+                            <div class="uk-inline uk-width-1-1">
+                                <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                <input class="uk-input" type="text" id="name-input">
+                            </div>
+                        </div>
+                        <button class="uk-modal-close-default" type="button" uk-close></button>
+                        <button class="uk-modal-close uk-button uk-button-primary" id="save-name" type="button">Save</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="pad-x-large uk-container uk-container-expand uk-background-primary">
+            <nav class="uk-light" uk-navbar>
+                <ul class="uk-navbar-nav">
+                    <li id="home-screen" class="uk-active"><a class="height-small uk-navbar-item" href="">Home</a></li>
+                    <li id="income-screen"><a class="height-small uk-navbar-item" href="">Income</a></li>
+                    <li id="expense-screen"><a class="height-small uk-navbar-item" href="">Expense</a></li>
+                    <li id="statement-screen"><a class="height-small uk-navbar-item" href="">Statement</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="display-home-screen">
+            <div class="uk-margin-medium-top uk-container uk-container-expand pad-x-large">
+                <div class="uk-card uk-card-default uk-card-body uk-width-1-1">
+                    <h3 class="uk-card-title">Account Summary</h3>
+                    
+                    <p id="display-account-balance" class="uk-text-primary uk-text-large"></p>
+                    <span id="display-total-income">Income: </span>
+                    <progress id="income-bar" class="uk-progress uk-progress-success" value="0" max="100"></progress>
+                    <span id="display-total-expense">Expense: </span>
+                    <progress id="expense-bar" class="uk-progress uk-progress-danger" value="0" max="100"></progress> 
+                </div>
+            </div>
+            <div class="uk-margin-medium-top uk-container uk-container-expand pad-x-large uk-child-width-1-2@m uk-grid-small uk-grid-match" uk-grid>
+                <div>
+                    <div class="uk-card uk-card-secondary uk-light uk-card-body">
+                        <h3 class="uk-card-title">Add Income</h3>
+                        <div class="uk-flex">
+                            <div class="uk-inline uk-width-2-3">
+                                <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                                <input class="uk-input" type="text" id="home-income-description-input" placeholder="Short Description">
+                            </div>
+                            <div class="uk-inline uk-width-1-3 uk-margin-small-left">
+                                <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                                <input class="uk-input" type="text" id="home-income-amount-input" placeholder="Amount">
+                            </div>
+                        </div>
+                        <button class="uk-margin-small-top uk-button uk-button-primary" id="save-home-income" type="button">Add</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-secondary uk-light uk-card-body">
+                        <h3 class="uk-card-title">Add Expense</h3>
+                        <div class="uk-flex">
+                            <div class="uk-inline uk-width-2-3">
+                                <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                                <input class="uk-input" type="text" id="home-expense-description-input" placeholder="Short Description">
+                            </div>
+                            <div class="uk-inline uk-width-1-3 uk-margin-small-left">
+                                <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                                <input class="uk-input" type="text" id="home-expense-amount-input" placeholder="Amount">
+                            </div>
+                        </div>
+                        <button class="uk-margin-small-top uk-button uk-button-primary" id="save-home-expense" type="button">Add</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="display-income-screen">
+            <div class="uk-margin-medium-top uk-container uk-container-expand pad-x-large">
+                <div class="uk-card uk-card-secondary uk-light uk-card-body">
+                    <h3 class="uk-card-title">Add Income</h3>
+                    <div class="uk-flex">
+                        <div class="uk-inline uk-width-2-3">
+                            <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                            <input class="uk-input" type="text" id="income-description-input" placeholder="Short Description">
+                        </div>
+                        <div class="uk-inline uk-width-1-3 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                            <input class="uk-input" type="text" id="income-amount-input" placeholder="Amount">
+                        </div>
+                    </div>
+                    <button class="uk-margin-small-top uk-button uk-button-primary" id="save-income" type="button">Add</button>
+                </div>
+                <div class="uk-margin-small-top uk-card uk-card-primary uk-light uk-card-body">
+                    <h3 class="uk-card-title">Filters</h3>
+                    <div class="uk-flex">
+                        <div class="uk-inline uk-width-2-6">
+                            <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                            <input class="uk-input" type="text" id="income-search-filter" placeholder="Search">
+                        </div>
+                        <div class="uk-inline uk-width-2-6 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <input class="uk-input" type="text" id="income-from-filter" placeholder="From">
+                        </div>
+                        <div class="uk-inline uk-width-2-6 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <input class="uk-input" type="text" id="income-to-filter" placeholder="To">
+                        </div>
+                    </div>
+                </div>
+                <h3>Income List</h3>
+                <ul id="income-list" class="uk-list uk-list-divider">
+
+                </ul>
+            </div>
+        </section>
+        <section id="display-expense-screen">
+            <div class="uk-margin-medium-top uk-container uk-container-expand pad-x-large">
+                <div class="uk-card uk-card-secondary uk-light uk-card-body">
+                    <h3 class="uk-card-title">Add Expense</h3>
+                    <div class="uk-flex">
+                        <div class="uk-inline uk-width-2-3">
+                            <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                            <input class="uk-input" type="text" id="expense-description-input" placeholder="Short Description">
+                        </div>
+                        <div class="uk-inline uk-width-1-3 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                            <input class="uk-input" type="text" id="expense-amount-input" placeholder="Amount">
+                        </div>
+                    </div>
+                    <button class="uk-margin-small-top uk-button uk-button-primary" id="save-expense" type="button">Add</button>
+                </div>
+                <div class="uk-margin-small-top uk-card uk-card-primary uk-light uk-card-body">
+                    <h3 class="uk-card-title">Filters</h3>
+                    <div class="uk-flex">
+                        <div class="uk-inline uk-width-2-6">
+                            <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                            <input class="uk-input" type="text" id="expense-search-filter" placeholder="Search">
+                        </div>
+                        <div class="uk-inline uk-width-2-6 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <input class="uk-input" type="text" id="expense-from-filter" placeholder="From">
+                        </div>
+                        <div class="uk-inline uk-width-2-6 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <input class="uk-input" type="text" id="expense-to-filter" placeholder="To">
+                        </div>
+                    </div>
+                </div>
+                <h3>Expense List</h3>
+                <ul id="expense-list" class="uk-list uk-list-divider">
+
+                </ul>
+            </div>
+        </section>
+        <section id="display-statement-screen">
+            <div class="uk-margin-medium-top uk-container uk-container-expand pad-x-large">
+                <div class="uk-margin-small-top uk-card uk-card-primary uk-light uk-card-body">
+                    <h3 class="uk-card-title">Filters</h3>
+                    <div class="uk-flex">
+                        <div class="uk-inline uk-width-2-6">
+                            <span class="uk-form-icon" uk-icon="icon: comment"></span>
+                            <input class="uk-input" type="text" id="statement-search-filter" placeholder="Search">
+                        </div>
+                        <div class="uk-inline uk-width-2-6 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <input class="uk-input" type="text" id="statement-from-filter" placeholder="From">
+                        </div>
+                        <div class="uk-inline uk-width-2-6 uk-margin-small-left">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <input class="uk-input" type="text" id="statement-to-filter" placeholder="To">
+                        </div>
+                    </div>
+                </div>
+                <h3>Statement</h3>
+                <ul id="statement-list" class="uk-list uk-list-divider">
+
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="uk-margin-large-top pad-x-large uk-container uk-container-expand uk-background-primary">
+                <nav class="uk-light" uk-navbar>
+                    <ul class="uk-navbar-nav">
+                        <li id="home-screen" class="uk-active"><a class="height-small uk-navbar-item" href="">&copy; Baladitya Swaika 2019.</a></li>
+                        <li id="income-screen"><a class="height-small uk-navbar-item" href=""><span class="uk-margin-small-right" uk-icon="icon:linkedin"></span></a></li>
+                        <li id="expense-screen"><a class="height-small uk-navbar-item" href=""><span class="uk-margin-small-right" uk-icon="icon:github"></span></a></li>
+                        <li id="statement-screen"><a class="height-small uk-navbar-item" href=""><span class="uk-margin-small-right" uk-icon="icon:facebook"></span></a></li>
+                        <li id="statement-screen"><a class="height-small uk-navbar-item" href=""><span class="uk-margin-small-right" uk-icon="icon:instagram"></span></a></li>
+                    </ul>
+                </nav>
+            </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit-icons.min.js"></script>
+    <script src="scripts/uuid.js"></script>
+    <script src="scripts/income.js"></script>
+    <script src="scripts/expense.js"></script>
+    <script src="scripts/account.js"></script>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
